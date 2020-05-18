@@ -25,6 +25,16 @@
 * Generate obstacles, blocked cells of the grid
 * Display the progress of the path in real-time
 
+## A*: how it works
+* A* maintains a tree of paths originating at the start node and extends those paths one edge at a time until the end condition is met.
+* At each iteration of the main loop A* chooses which path to extend based on:
+  * the cost from the start to current node
+  * the estimated cost from current node to the goal
+* f(n) = g(n) + h(n)
+  * n = the next node on the path
+  * g(n) = the cost of the path from start node to n
+  * h(n) = the estimated cost from n to the goal
+
 # Possible Modifications
 * Enable user to add obstacles
 
