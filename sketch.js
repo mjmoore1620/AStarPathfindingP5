@@ -1,29 +1,41 @@
-let cols = 5;
-let rows = 5;
-let space = 20;
-let nodeSize = 5;
+let cols;
+let rows;
+let junctionSize = 7;
+let scale = junctionSize * 4;
 
-let grid = new Array(cols);
+let grid;
+
+let openSet = [];
+let closedSet = [];
 
 function setup() {
 	createCanvas(800, 600);
 	background(51);
+	rectMode(CENTER);
 
-
-	cols = width / space;
-	rows = height / space;
+	cols = floor(width / scale);
+	rows = floor(height / scale);
+	console.log("columns: " + cols);
+	console.log("rows: " + rows);
+	
+	grid  = new Array(cols);
 
 	for (let i = 0; i < cols; i++) {
 		grid[i] = new Array(rows);
 	}
 
+	for (let x = 0; x < grid.length; x++) {		
+		for (let y = 0; y < grid[x].length; y++) {			
+			grid[x][y] = new Junction(x, y, junctionSize, scale);
+		}
+	}
 }
 
 function draw() {
 	background(51);
-	for (let i = 0; i < grid.length; i++) {
-		for (let j = 0; j < grid[i].length; j++) {
-			rect(i * space, j * space, nodeSize, nodeSize);
+	for (let x = 0; x < grid.length; x++) {
+		for (let y = 0; y < grid[x].length; y++) {
+			grid[x][y].show();
 		}
 	}
 
