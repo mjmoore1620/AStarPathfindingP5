@@ -8,6 +8,8 @@ let grid;
 let openSet = [];
 let closedSet = [];
 
+let heap;
+
 function setup() {
 	createCanvas(800, 600);
 	background(51);
@@ -24,11 +26,20 @@ function setup() {
 		grid[i] = new Array(rows);
 	}
 
-	for (let x = 0; x < grid.length; x++) {		
-		for (let y = 0; y < grid[x].length; y++) {			
+	for (let x = 0; x < grid.length; x++) {
+		for (let y = 0; y < grid[x].length; y++) {
 			grid[x][y] = new Junction(x, y, junctionSize, scale);
 		}
 	}
+
+	heap = new MinHeap();
+	heap.insert(4);
+	heap.insert(2);
+	heap.insert(6);
+	heap.insert(1);
+
+	console.log(heap.extract());
+	
 }
 
 function draw() {
@@ -38,5 +49,4 @@ function draw() {
 			grid[x][y].show();
 		}
 	}
-
 }
