@@ -17,6 +17,16 @@
 # What have I got from doing this so far?
 * I figured out what was going wrong when using 'hub create' command to create a repository on github remotely
   * It was set to use ssh by default
+* Reviewed and used javascript es6 destructuring assignment
+  * the [a, b] = [b, a] swap 
+* Used some es6 style js
+  * classes are es6+ only I think
+* binary heaps
+  * reviewed 
+  * implemented using wikipedia as reference
+    * wasn't bad
+  * data structures in js are different
+    * don't know if using the js array and its functions slow down custom data structures potentially
 
 # Specifications
 * Write in javascript using p5.js
@@ -37,6 +47,8 @@
 
 # Possible Modifications
 * Enable user to add obstacles
+* Assess and optimize data structures used
 
 # References
 1. <https://en.wikipedia.org/wiki/A*_search_algorithm>
+2. <https://en.wikipedia.org/wiki/Binary_heap>
