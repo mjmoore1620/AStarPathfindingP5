@@ -9,7 +9,7 @@ class MinHeap {
      */
     bubbleUp(index) {
         let parentI = floor((index - 1 / 2));
-        if (this.array[index] < this.array[parentI]) {
+        if (+this.array[index] < +this.array[parentI]) {
             [this.array[index], this.array[parentI]] = [this.array[parentI], this.array[index]];
             this.bubbleUp(parentI);
         }
@@ -24,9 +24,9 @@ class MinHeap {
         let rightChildI = 2 * index + 2;
         let newIndex;
 
-        if (this.array[index] > this.array[leftChildI] || this.array[index] > this.array[rightChildI]) {
+        if (+this.array[index] > +this.array[leftChildI] || +this.array[index] > +this.array[rightChildI]) {
             //if the new thing is greater than left child, swap
-            if (this.array[index] > this.array[leftChildI]) {
+            if (+this.array[index] > +this.array[leftChildI]) {
                 [this.array[index], this.array[leftChildI]] = [this.array[leftChildI], this.array[index]];
 
                 //capture new index for recursive bubble-down
@@ -34,7 +34,7 @@ class MinHeap {
             }
 
             //if the new thing is greater than right child, swap
-            if (this.array[index] > this.array[rightChildI]) {
+            if (+this.array[index] > +this.array[rightChildI]) {
                 [this.array[index], this.array[rightChildI]] = [this.array[rightChildI], this.array[index]];
 
                 //capture new index for recursive bubble-down
@@ -56,5 +56,9 @@ class MinHeap {
         this.array[0] = this.array.pop();
         this.bubbleDown(0);
         return min;
+    }
+
+    peak() {
+        return this.array[0];
     }
 }
