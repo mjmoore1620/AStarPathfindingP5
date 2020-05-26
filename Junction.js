@@ -11,26 +11,34 @@ class Junction {
         this.start;
         this.goal;
         this.neighborDebug;
+        this.tipDebug;
+        this.realPosition = createVector(this.position.x * this.scale + this.margin, this.position.y * this.scale + this.margin);
 
         //f(n) = g(n) + h(n)
         //estimate from this node to goal
         this.h;
         //cost of path from parent to start
-        this.g;
+        this.g = Infinity;
         //g + h
         this.f;
     }
 
     setH(goal) {
-        this.h = dist(this.position, goal.position);
+        this.h = p5.Vector.dist(this.position, goal.position);
     }
     
     setG(parent) {
-        this.g = dist(this.position, parent.position) + parent.gCost;
+        this.g = p5.Vector.dist(this.position, parent.position) + parent.gCost;
     }
 
     setF() {
-        this.f = this.g + this.h;
+        try {
+            if (this.g == null) throw "g score is null";
+            if(this.h == null) throw "h score is null";
+            this.f = this.g + this.h;
+        } catch (error) {
+            console.log("setF of " + this.position.x + " " + this.position.y + ", " + error);
+        }
     }
 
     show() {
@@ -45,6 +53,10 @@ class Junction {
         else if (this.neighborDebug) {
             stroke('yellow');
             fill('yellow');
+        }
+        else if (this.tipDebug) {
+            stroke('pink');
+            fill('pink');
         }
         else {
             stroke('black')
