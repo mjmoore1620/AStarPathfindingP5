@@ -52,6 +52,10 @@ class MinHeap {
     }
 
     extract() {
+        if (this.array.length === 1) {
+            return this.array.pop();
+        }
+        
         let min = this.array[0];
         this.array[0] = this.array.pop();
         this.bubbleDown(0);
