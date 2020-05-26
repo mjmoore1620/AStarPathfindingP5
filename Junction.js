@@ -10,6 +10,7 @@ class Junction {
         this.margin = size * 3;
         this.start;
         this.goal;
+        this.neighborDebug;
 
         //f(n) = g(n) + h(n)
         //estimate from this node to goal
@@ -28,9 +29,8 @@ class Junction {
         this.g = dist(this.position, parent.position) + parent.gCost;
     }
 
-    setF(num) {
-        //this.f = this.g + this.h;
-        this.f = num;
+    setF() {
+        this.f = this.g + this.h;
     }
 
     show() {
@@ -41,6 +41,10 @@ class Junction {
         else if (this.goal) {
             stroke('red')
             fill('red');
+        }
+        else if (this.neighborDebug) {
+            stroke('yellow');
+            fill('yellow');
         }
         else {
             stroke('black')
