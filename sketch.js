@@ -38,11 +38,12 @@ function setup() {
 
 	// set starting and goal nodes
 	start = grid[0][0];
-	goal = grid[cols - 1][rows - 1];
+	goal = grid[cols - 1][0];
 	start.start = true;
 	goal.goal = true;
 
 	start.g = 0;
+	start.f = start.setH(goal);
 	
 	openSet = new MinHeap();
 	openSet.insert(start);
@@ -62,10 +63,9 @@ function draw() {
 		current.tipDebug = true;
 		current.show();
 		current.tipDebug = false;
-		// console.log(current);
-		
 
 		drawRoute(current);
+
 		if (current == goal) {
 			console.log("goal reached");
 			noLoop();
@@ -76,7 +76,7 @@ function draw() {
 		let neighbors = getNeighbors(current);
 		neighbors.forEach(n => {
 			// tentative g score of this neighbor with current as parent
-			let tentativeG = current.g + p5.Vector.dist(current.position, n.position);
+			let tentativeG = current.g + p5.Vector.dist(current.realPosition, n.realPosition);
 			if (tentativeG < n.g) {
 				n.parent = current;
 				n.g = tentativeG;
@@ -91,12 +91,16 @@ function draw() {
 		});
 
 	}
+	else {
+		console.log('failure');
+		
+	}
 
 }
 
 function drawRoute(junction) {
 	let path = [];
-	path.push[junction];
+	path.push(junction);
 
 	while (junction.parent != null) {
 		path.push(junction.parent);
@@ -105,15 +109,11 @@ function drawRoute(junction) {
 
 	noFill();
 	stroke('blue');
-	//strokeWeight(5);
 	beginShape();
 	for (var i = 0; i < path.length; i++) {
 		vertex(path[i].realPosition.x, path[i].realPosition.y);
 	}
-	endShape();
-
-	//console.log(path);
-	
+	endShape();	
 }
 
 function getNeighbors(current) {

@@ -20,15 +20,15 @@ class Junction {
         //cost of path from parent to start
         this.g = Infinity;
         //g + h
-        this.f;
+        this.f = Infinity;
     }
 
     setH(goal) {
-        this.h = p5.Vector.dist(this.position, goal.position);
+        this.h = p5.Vector.dist(this.realPosition, goal.realPosition);
     }
     
     setG(parent) {
-        this.g = p5.Vector.dist(this.position, parent.position) + parent.gCost;
+        this.g = p5.Vector.dist(this.realPosition, parent.realPosition) + parent.gCost;
     }
 
     setF() {
