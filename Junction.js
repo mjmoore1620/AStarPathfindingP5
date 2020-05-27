@@ -109,4 +109,11 @@ class Junction {
         return this.f;
     }
 
+    toString() {
+        let str = '';
+        str += this.position.x + ', ' + this.position.y + ': ' + this.f;
+
+        return str;
+    }
+
 }

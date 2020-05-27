@@ -4,8 +4,8 @@ class MinHeap {
     }
 
     /**
-     * Compare the added element with its parent; if they are out of order, swap and and bubble up until top of heap or parent is less. 
-     * @param {*} index 
+     * Compare item at given index to its parents and reorder if necessary.
+     * @param {integer} index   Index of the item to bubble up.
      */
     bubbleUp(index) {
         let parentI = floor((index - 1 / 2));
@@ -16,38 +16,32 @@ class MinHeap {
     }
 
     /**
-     * On removal of lowest value, bubble down last element to ensure heap integrity.
-     * @param {*} index 
+     * Compare item at given index to its children and reorder if necessary.
+     * @param {integer} index Index of the item to bubble down.
      */
     bubbleDown(index) {
         let leftChildI = 2 * index + 1;
         let rightChildI = 2 * index + 2;
-        let newIndex;
+        let smallChildI;
 
-        if (+this.array[index] > +this.array[leftChildI] || +this.array[index] > +this.array[rightChildI]) {
-            //if the new thing is greater than left child, swap
-            if (+this.array[index] > +this.array[leftChildI]) {
-                [this.array[index], this.array[leftChildI]] = [this.array[leftChildI], this.array[index]];
+        // get the index of the smaller child
+        if (+this.array[leftChildI] < +this.array[rightChildI]) {
+            smallChildI = leftChildI;
+        }
+        else {
+            smallChildI = rightChildI;
+        }
 
-                //capture new index for recursive bubble-down
-                newIndex = leftChildI;
-            }
-
-            //if the new thing is greater than right child, swap
-            if (+this.array[index] > +this.array[rightChildI]) {
-                [this.array[index], this.array[rightChildI]] = [this.array[rightChildI], this.array[index]];
-
-                //capture new index for recursive bubble-down
-                newIndex = rightChildI;
-            }
-
-            this.bubbleDown(newIndex);
+        if (+this.array[index] > +this.array[smallChildI]) {
+            [this.array[index], this.array[smallChildI]] = [this.array[smallChildI], this.array[index]];
+            // the larger item is now at the small child's index, so bubble down again
+            this.bubbleDown(smallChildI);
         }
     }
 
     /**
-     * Don't think this works yet
-     * @param {*} item 
+     * Update only works when an item value is lowered as is.
+     * @param {Any item in the list to update} item  The item to update.
      */
     update(item) {
         let index = this.array.indexOf(item);

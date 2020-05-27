@@ -31,6 +31,9 @@
 * adding a valueOf() method to a js object/class is like overriding Equals() in cSharp
   * still not 100% on implications of '==' v '===' in js
 * wrote first try-catch with custom error
+  * probably not necessary
+  * an assert method would be super nice though
+* I really need to look at typescript, js feels too loose
 
 # Issues
 * ~~The algo is definitely not working right~~
@@ -38,10 +41,14 @@
   * It is definitely not finding the optimal solution
   * It goes in the optimal path if the goal is straight down or straight right
   * The problem is solved if the the min heap is rebuilt every time before its used in the next loop
-    * I think its because sometimes values are updated
+    * ~~I think its because sometimes values are updated~~
       * I tried an update method but its not working yet, if updates are the reason, need to test
-* I need to rename some variables
+  * Problem solved for sure. It was minHeap.extract()
+    * The bubble down algo for the extract method wasn't keeping track of the index correctly
+    * Update was never the issue
+* <del>I need to rename some variables</del>
   * especially in Junction.js
+* need to make a function that verifies heap integrity
 
 
 # Specifications

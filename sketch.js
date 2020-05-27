@@ -10,8 +10,6 @@ let openSet;
 let start;
 let goal;
 
-let heap;
-
 let wallChance = .3;
 
 function setup() {
@@ -54,6 +52,8 @@ function setup() {
 	// initialize priority queue
 	openSet = new MinHeap();
 	openSet.insert(start);
+
+	// heapTest();
 }
 
 function draw() {
@@ -73,12 +73,6 @@ function draw() {
 
 	// A* logic
 	if (openSet.array.length > 0) {
-		let tempSet = new MinHeap();
-		openSet.array.forEach(element => {
-			tempSet.insert(element);
-		});
-		openSet = tempSet;
-
 		let current = openSet.peak();
 
 		current.tipDebug = true;
@@ -109,19 +103,17 @@ function draw() {
 					openSet.insert(n);
 					n.openSet = true;
 				}
-				// else {
-				// 	openSet.update(n);
-				// 	console.log('this is a problem');
-				// }
-
+				else {
+					openSet.update(n);
+					console.log('hello');
+					
+				}
 			}
 		});
-
 	}
 	else {
 		console.log('failure');
 	}
-
 }
 
 /**
@@ -193,4 +185,13 @@ function getNeighbors(current) {
 	// });
 
 	return neighbors;
+}
+
+let heap;
+function heapTest() {
+	heap = new MinHeap();
+	for (let i = 0; i < 20; i++) {
+		heap.insert(floor(random(0, 100)));
+	}
+	console.log(heap);
 }
