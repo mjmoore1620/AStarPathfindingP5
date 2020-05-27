@@ -37,7 +37,7 @@ function setup() {
 
 	// set starting and goal nodes
 	start = grid[0][0];
-	goal = grid[cols - 1][rows - 1];
+	goal = grid[cols - 2][rows - 2];
 	start.start = true;
 	goal.goal = true;
 
@@ -143,6 +143,21 @@ function getNeighbors(current) {
 	}
 	if (y < rows - 1) {
 		neighbors.push(grid[x][y + 1])
+	}
+	
+	// diagonals
+	if (x > 0 && y > 0) {
+		// top left
+		neighbors.push(grid[x - 1][y - 1])
+	}
+	if (x < cols - 1 && y > 0) {
+		neighbors.push(grid[x + 1][y - 1])
+	}
+	if (x < cols - 1 && y < rows - 1) {
+		neighbors.push(grid[x + 1][y + 1])
+	}
+	if (x > 0 && y < rows - 1) {
+		neighbors.push(grid[x - 1][y + 1])
 	}
 
 	neighbors.forEach(element => {

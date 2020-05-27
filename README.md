@@ -32,7 +32,7 @@
 * wrote first try-catch with custom error
 
 # Issues
-* The algo is definitely not working right
+* ~~The algo is definitely not working right~~
   * It eventually finds the goal, but it repeats and goes weird ways
   * It is definitely not finding the optimal solution
   * It goes in the optimal path if the goal is straight down or straight right
