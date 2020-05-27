@@ -3,16 +3,22 @@
  */
 class Junction {
     constructor(x, y, size, scale) {
+        // the x,y position in the grid
         this.position = createVector(x, y);
-        this.parent;
+
         this.size = size;
         this.scale = scale;
         this.margin = size * 3;
-        this.start;
-        this.goal;
+
+        // the x,y position in pixels
+        this.realPosition = createVector(this.position.x * this.scale + this.margin, this.position.y * this.scale + this.margin);
+
+        this.parent;
+
+        this.isStart;
+        this.isGoal;
         this.neighborDebug;
         this.tipDebug;
-        this.realPosition = createVector(this.position.x * this.scale + this.margin, this.position.y * this.scale + this.margin);
         this.openSet = false;
         this.wall = false;
 
@@ -25,6 +31,18 @@ class Junction {
         this.f = Infinity;
     }
 
+    startSetup(goal) {
+        this.isStart = true;
+        this.wall = false;
+        this.g = 0;
+        this.setH(goal);
+        this.f = this.h;
+    }
+
+    /**
+     * Sets the heuristic estimate of the cost of current junction to goal.
+     * @param {Junction} goal   The junction that is goal of the the A* algorithm.
+     */
     setH(goal) {
         this.h = p5.Vector.dist(this.realPosition, goal.realPosition);
     }
@@ -34,6 +52,9 @@ class Junction {
     //     this.g = p5.Vector.dist(this.realPosition, parent.realPosition) + parent.gCost;
     // }
 
+    /**
+     * Sets best case cost estimate for a junction. f(n) = g(n) + h(n)
+     */
     setF() {
         try {
             if (this.g == null) throw "g score is null";
@@ -44,14 +65,13 @@ class Junction {
         }
     }
 
+    /**
+     * Draws a rectangle to represent a junction. Color is based on internal flags.
+     */
     show() {
-        if (this.start) {
-            stroke('green');
-            fill('green');
-        }
-        else if (this.goal) {
-            stroke('red')
-            fill('red');
+        if (this.wall) {
+            stroke('black')
+            fill('black');
         }
         // else if (this.neighborDebug) {
         //     stroke('yellow');
@@ -65,9 +85,13 @@ class Junction {
             stroke('purple');
             fill('purple');
         }
-        else if (this.wall) {
-            stroke('black')
-            fill('black');
+        else if (this.isStart) {
+            stroke('green');
+            fill('green');
+        }
+        else if (this.isGoal) {
+            stroke('red')
+            fill('red');
         }
         else {
             stroke('white')
@@ -78,6 +102,9 @@ class Junction {
         rect(this.realPosition.x, this.realPosition.y, this.size * 3, this.size * 3);
     }
 
+    /**
+     * Returns the value of the best case cost estimate for a junction. f(n) = g(n) + h(n)
+     */
     valueOf() {
         return this.f;
     }

@@ -3,6 +3,7 @@
 
 # Progress
 * Started: 5/12/2020
+* Finished: 5/27/2020
 
 # What is the purpose of this exercise?
 * Implement an A* pathfinding algorithm 
@@ -63,6 +64,7 @@
 # Possible Modifications
 * Enable user to add obstacles
 * Assess and optimize data structures used
+* Write the whole thing in cSharp
 
 # References
 1. <https://en.wikipedia.org/wiki/A*_search_algorithm>

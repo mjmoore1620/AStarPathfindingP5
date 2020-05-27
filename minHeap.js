@@ -51,7 +51,7 @@ class MinHeap {
      */
     update(item) {
         let index = this.array.indexOf(item);
-        this.bubbleDown(index);
+        //this.bubbleDown(index);
         this.bubbleUp(index);
     }
 

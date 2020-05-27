@@ -1,6 +1,6 @@
 let cols;
 let rows;
-let junctionSize = 7;
+let junctionSize = 3;
 let scale = junctionSize * 4;
 
 let grid;
@@ -40,27 +40,25 @@ function setup() {
 		}
 	}
 
-	// set starting and goal nodes
+	// set starting and goal nodes, while they are the same, pick again
 	do {
 		goal = grid[floor(random(0, cols))][floor(random(0, rows))];
 		start = grid[floor(random(0, cols))][floor(random(0, rows - 1))];
 	} while (goal == start);
 
-	start.start = true;
-	start.wall = false;
-	goal.goal = true;
+	// start and goal setup
+	start.startSetup(goal);
+	goal.isGoal = true;
 	goal.wall = false;
 
-	start.g = 0;
-	start.setH(goal);
-	start.f = start.h;
-
+	// initialize priority queue
 	openSet = new MinHeap();
 	openSet.insert(start);
 }
 
 function draw() {
 	background(100);
+	// draw the grid of junctions, if they are a wall or in openSet
 	for (let x = 0; x < grid.length; x++) {
 		for (let y = 0; y < grid[x].length; y++) {
 			if (grid[x][y].wall || grid[x][y].openSet) {
@@ -69,9 +67,11 @@ function draw() {
 		}
 	}
 
+	// draw start and goal
 	start.show();
 	goal.show();
 
+	// A* logic
 	if (openSet.array.length > 0) {
 		let tempSet = new MinHeap();
 		openSet.array.forEach(element => {
@@ -124,6 +124,10 @@ function draw() {
 
 }
 
+/**
+ * Backtracks from the junction parent recursively to build a route
+ * @param {Junction} junction	The endpoint of the route.
+ */
 function drawRoute(junction) {
 	let path = [];
 	path.push(junction);
@@ -143,11 +147,16 @@ function drawRoute(junction) {
 	endShape();
 }
 
+/**
+ * Returns an array of Junctions which are the neighbors of the input Junction.
+ * @param {Junction} current The current Junction to look at the neighbors of. 
+ */
 function getNeighbors(current) {
 	let neighbors = [];
 	let x = current.position.x;
 	let y = current.position.y;
 
+	// left, top, right, bottom
 	if (x > 0) {
 		neighbors.push(grid[x - 1][y])
 	}
@@ -176,6 +185,7 @@ function getNeighbors(current) {
 		neighbors.push(grid[x - 1][y + 1])
 	}
 
+	// // highlights the neighbors of the current junction
 	// neighbors.forEach(element => {
 	// 	element.neighborDebug = true;
 	// 	element.show();
