@@ -27,6 +27,21 @@
     * wasn't bad
   * data structures in js are different
     * don't know if using the js array and its functions slow down custom data structures potentially
+* adding a valueOf() method to a js object/class is like overriding Equals() in cSharp
+  * still not 100% on implications of '==' v '===' in js
+* wrote first try-catch with custom error
+
+# Issues
+* The algo is definitely not working right
+  * It eventually finds the goal, but it repeats and goes weird ways
+  * It is definitely not finding the optimal solution
+  * It goes in the optimal path if the goal is straight down or straight right
+  * The problem is solved if the the min heap is rebuilt every time before its used in the next loop
+    * I think its because sometimes values are updated
+      * I tried an update method but its not working yet, if updates are the reason, need to test
+* I need to rename some variables
+  * especially in Junction.js
+
 
 # Specifications
 * Write in javascript using p5.js
