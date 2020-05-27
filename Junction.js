@@ -27,9 +27,10 @@ class Junction {
         this.h = p5.Vector.dist(this.realPosition, goal.realPosition);
     }
     
-    setG(parent) {
-        this.g = p5.Vector.dist(this.realPosition, parent.realPosition) + parent.gCost;
-    }
+    // // this is done in sketch.js
+    // setG(parent) {
+    //     this.g = p5.Vector.dist(this.realPosition, parent.realPosition) + parent.gCost;
+    // }
 
     setF() {
         try {
@@ -63,7 +64,7 @@ class Junction {
             fill('black');
         }
         
-        rect(this.position.x * this.scale + this.margin, this.position.y * this.scale + this.margin, this.size, this.size);
+        rect(this.realPosition.x, this.realPosition.y, this.size, this.size);
     }
 
     valueOf() {

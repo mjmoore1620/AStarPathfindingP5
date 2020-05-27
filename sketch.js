@@ -6,7 +6,6 @@ let scale = junctionSize * 4;
 let grid;
 
 let openSet;
-let closedSet = [];
 
 let start;
 let goal;
@@ -38,15 +37,18 @@ function setup() {
 
 	// set starting and goal nodes
 	start = grid[0][0];
-	goal = grid[cols - 1][0];
+	goal = grid[12][11];
 	start.start = true;
 	goal.goal = true;
 
 	start.g = 0;
-	start.f = start.setH(goal);
+	start.setH(goal);
+	start.f = start.h;
 	
 	openSet = new MinHeap();
 	openSet.insert(start);
+	console.log(openSet);
+	
 }
 
 function draw() {
@@ -56,8 +58,14 @@ function draw() {
 			grid[x][y].show();
 		}
 	}
-
+	
 	if (openSet.array.length > 0) {
+		let tempSet = new MinHeap();
+		openSet.array.forEach(element => {
+			tempSet.insert(element);
+		});
+		openSet = tempSet;
+
 		let current = openSet.peak();
 
 		current.tipDebug = true;
@@ -74,6 +82,7 @@ function draw() {
 		openSet.extract();
 
 		let neighbors = getNeighbors(current);
+
 		neighbors.forEach(n => {
 			// tentative g score of this neighbor with current as parent
 			let tentativeG = current.g + p5.Vector.dist(current.realPosition, n.realPosition);
@@ -85,15 +94,17 @@ function draw() {
 				if (!openSet.array.includes(n)) {
 					openSet.insert(n);
 				}
+				else {
+					openSet.update(n);
+					console.log('this is a problem');
+				}
+				
 			}
-
-			// neighbors[i].neighborDebug = true; // for debugging which node is detected as neighboring
 		});
 
 	}
 	else {
 		console.log('failure');
-		
 	}
 
 }

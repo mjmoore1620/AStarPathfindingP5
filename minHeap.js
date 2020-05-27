@@ -45,6 +45,16 @@ class MinHeap {
         }
     }
 
+    /**
+     * Don't think this works yet
+     * @param {*} item 
+     */
+    update(item) {
+        let index = this.array.indexOf(item);
+        this.bubbleDown(index);
+        this.bubbleUp(index);
+    }
+
     insert(input) {
         this.array.push(input);
         let index = this.array.length - 1;
