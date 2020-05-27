@@ -13,6 +13,7 @@ class Junction {
         this.neighborDebug;
         this.tipDebug;
         this.realPosition = createVector(this.position.x * this.scale + this.margin, this.position.y * this.scale + this.margin);
+        this.openSet = false;
 
         //f(n) = g(n) + h(n)
         //estimate from this node to goal
@@ -58,6 +59,10 @@ class Junction {
         else if (this.tipDebug) {
             stroke('pink');
             fill('pink');
+        }
+        else if (this.openSet){
+            stroke('purple');
+            fill('purple');
         }
         else {
             stroke('black')

@@ -37,7 +37,7 @@ function setup() {
 
 	// set starting and goal nodes
 	start = grid[0][0];
-	goal = grid[12][11];
+	goal = grid[cols - 1][rows - 1];
 	start.start = true;
 	goal.goal = true;
 
@@ -47,8 +47,6 @@ function setup() {
 	
 	openSet = new MinHeap();
 	openSet.insert(start);
-	console.log(openSet);
-	
 }
 
 function draw() {
@@ -71,15 +69,16 @@ function draw() {
 		current.tipDebug = true;
 		current.show();
 		current.tipDebug = false;
-
+		
 		drawRoute(current);
-
+		
 		if (current == goal) {
 			console.log("goal reached");
 			noLoop();
 		}
-
+		
 		openSet.extract();
+		current.openSet = false;
 
 		let neighbors = getNeighbors(current);
 
@@ -93,6 +92,7 @@ function draw() {
 				n.setF();
 				if (!openSet.array.includes(n)) {
 					openSet.insert(n);
+					n.openSet = true;
 				}
 				else {
 					openSet.update(n);
