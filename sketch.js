@@ -12,6 +12,8 @@ let goal;
 
 let heap;
 
+let wallChance = .3;
+
 function setup() {
 	createCanvas(800, 600);
 	background(51);
@@ -32,14 +34,19 @@ function setup() {
 	for (let x = 0; x < grid.length; x++) {
 		for (let y = 0; y < grid[x].length; y++) {
 			grid[x][y] = new Junction(x, y, junctionSize, scale);
+			if (random() < wallChance) {
+				grid[x][y].wall = true;
+			}
 		}
 	}
 
 	// set starting and goal nodes
-	start = grid[0][0];
-	goal = grid[cols - 2][rows - 2];
+	goal = grid[0][0];
+	start = grid[cols - 2][rows - 2];
 	start.start = true;
+	start.wall = false;
 	goal.goal = true;
+	goal.wall  = false;
 
 	start.g = 0;
 	start.setH(goal);
@@ -85,7 +92,7 @@ function draw() {
 		neighbors.forEach(n => {
 			// tentative g score of this neighbor with current as parent
 			let tentativeG = current.g + p5.Vector.dist(current.realPosition, n.realPosition);
-			if (tentativeG < n.g) {
+			if (tentativeG < n.g && !n.wall) {
 				n.parent = current;
 				n.g = tentativeG;
 				n.setH(goal);
@@ -160,11 +167,11 @@ function getNeighbors(current) {
 		neighbors.push(grid[x - 1][y + 1])
 	}
 
-	neighbors.forEach(element => {
-		element.neighborDebug = true;
-		element.show();
-		element.neighborDebug = false;
-	});
+	// neighbors.forEach(element => {
+	// 	element.neighborDebug = true;
+	// 	element.show();
+	// 	element.neighborDebug = false;
+	// });
 
 	return neighbors;
 }

@@ -14,6 +14,7 @@ class Junction {
         this.tipDebug;
         this.realPosition = createVector(this.position.x * this.scale + this.margin, this.position.y * this.scale + this.margin);
         this.openSet = false;
+        this.wall = false;
 
         //f(n) = g(n) + h(n)
         //estimate from this node to goal
@@ -27,7 +28,7 @@ class Junction {
     setH(goal) {
         this.h = p5.Vector.dist(this.realPosition, goal.realPosition);
     }
-    
+
     // // this is done in sketch.js
     // setG(parent) {
     //     this.g = p5.Vector.dist(this.realPosition, parent.realPosition) + parent.gCost;
@@ -36,7 +37,7 @@ class Junction {
     setF() {
         try {
             if (this.g == null) throw "g score is null";
-            if(this.h == null) throw "h score is null";
+            if (this.h == null) throw "h score is null";
             this.f = this.g + this.h;
         } catch (error) {
             console.log("setF of " + this.position.x + " " + this.position.y + ", " + error);
@@ -45,31 +46,35 @@ class Junction {
 
     show() {
         if (this.start) {
-            stroke('green');            
+            stroke('green');
             fill('green');
         }
         else if (this.goal) {
             stroke('red')
             fill('red');
         }
-        else if (this.neighborDebug) {
-            stroke('yellow');
-            fill('yellow');
-        }
-        else if (this.tipDebug) {
-            stroke('pink');
-            fill('pink');
-        }
-        else if (this.openSet){
+        // else if (this.neighborDebug) {
+        //     stroke('yellow');
+        //     fill('yellow');
+        // }
+        // else if (this.tipDebug) {
+        //     stroke('pink');
+        //     fill('pink');
+        // }
+        else if (this.openSet) {
             stroke('purple');
             fill('purple');
         }
-        else {
+        else if (this.wall) {
             stroke('black')
             fill('black');
         }
-        
-        rect(this.realPosition.x, this.realPosition.y, this.size, this.size);
+        else {
+            stroke('white')
+            fill('white');
+        }
+
+        rect(this.realPosition.x, this.realPosition.y, this.size * 2, this.size * 2);
     }
 
     valueOf() {
