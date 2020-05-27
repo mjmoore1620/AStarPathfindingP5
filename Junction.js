@@ -74,7 +74,8 @@ class Junction {
             fill('white');
         }
 
-        rect(this.realPosition.x, this.realPosition.y, this.size * 2, this.size * 2);
+        strokeWeight(1);
+        rect(this.realPosition.x, this.realPosition.y, this.size * 3, this.size * 3);
     }
 
     valueOf() {
