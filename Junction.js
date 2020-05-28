@@ -99,7 +99,7 @@ class Junction {
         }
 
         strokeWeight(1);
-        rect(this.realPosition.x, this.realPosition.y, this.size * 3, this.size * 3);
+        rect(this.realPosition.x, this.realPosition.y, this.size * 2, this.size * 2);
     }
 
     /**

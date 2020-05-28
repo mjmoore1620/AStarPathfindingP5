@@ -75,18 +75,23 @@ function draw() {
 	if (openSet.array.length > 0) {
 		let current = openSet.peak();
 
-		current.tipDebug = true;
-		current.show();
-		current.tipDebug = false;
+		// current.tipDebug = true;
+		// current.show();
+		// current.tipDebug = false;
 
 		drawRoute(current);
 
+		// check for completion
 		if (current == goal) {
 			console.log("goal reached");
 			noLoop();
 		}
 
 		openSet.extract();
+		// if (!openSet.isHeap(0)) {
+		// 	console.log('heap fail on extract');
+		// }
+
 		current.openSet = false;
 
 		let neighbors = getNeighbors(current);
@@ -102,11 +107,15 @@ function draw() {
 				if (!openSet.array.includes(n)) {
 					openSet.insert(n);
 					n.openSet = true;
+					// if (!openSet.isHeap(0)) {
+					// 	console.log('heap fail on insert');
+					// }
 				}
 				else {
 					openSet.update(n);
-					console.log('hello');
-					
+					// if (!openSet.isHeap(0)) {
+					// 	console.log('heap fail on update');
+					// }
 				}
 			}
 		});
@@ -190,8 +199,17 @@ function getNeighbors(current) {
 let heap;
 function heapTest() {
 	heap = new MinHeap();
-	for (let i = 0; i < 20; i++) {
-		heap.insert(floor(random(0, 100)));
-	}
+	// for (let i = 0; i < 5; i++) {
+	// 	heap.insert(floor(random(0, 100)));
+	// 	console.log(heap.isHeap(0));
+
+	// }
+	heap.insert(82);
+	heap.insert(80);
+	heap.insert(60);
+	heap.insert(95);
+	heap.insert(92);
+
 	console.log(heap);
+	console.log(heap.isHeap(0));
 }
